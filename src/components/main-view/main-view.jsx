@@ -11,7 +11,8 @@ export class MainView extends React.Component {
         super();
         this.state = {
             movies: [],
-            selectedMovie: null
+            selectedMovie: null,
+            user: null
         };
     }
 
@@ -27,7 +28,7 @@ export class MainView extends React.Component {
             });
     }
 
-    setSelectedMovie(newSelectedMovie) {
+    setSelectedMovie(movie) {
         this.setState({
             selectedMovie: movie
         });
