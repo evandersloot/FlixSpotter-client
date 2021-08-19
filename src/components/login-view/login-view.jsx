@@ -8,7 +8,7 @@ export function LoginView(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password);
-        //props.onLoggedIn(username);
+        props.onLoggedIn(username);
     };
 
     return (
@@ -31,5 +31,5 @@ LoginView.propTypes = {
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
     }),
-    onLoggedIn: PropTypes.func.isRequired,
+    //onLoggedIn: PropTypes.func.isRequired,
 };
