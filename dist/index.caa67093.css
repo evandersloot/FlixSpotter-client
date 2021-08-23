@@ -1,33 +1,49 @@
-.flix-spotter {
-  color: steelblue;
+.main-container {
+  width: 100%;
+  height: 100%;
 }
 
-*,
 body {
-  box-sizing: border-box;
+  background-color: #000000;
 }
 
-form {
-  display: inline-block;
+.app-container {
+  background-color: #000000;
+  height: 100%;
+  padding-bottom: 5px;
+}
+
+.container {
+  background-color: white;
+  height: 100%;
+}
+.open-button {
+  display: grid;
+  gap: 2;
+  color: blue;
+}
+.movieView {
   text-align: center;
-  width: 300px;
-  margin: 20px;
+  background-color: black;
+}
+
+.back-movies {
   margin-top: 20px;
-  padding: 5px;
-  border-radius: 10px;
-  background-color: lightblue;
+  margin-bottom: 20px;
 }
 
-label,
-.signUpBtn {
-  display: block;
-  width: 200px;
-  margin: auto;
-  padding: 5px;
+.movie-title, .movie-director, .movie-genre {
+  text-decoration: underline;
 }
-
-.signUpBtn {
-  width: 100px;
-  margin-top: 5px;
+.login-button {
+  display: grid;
+  gap: 2;
+}
+.register-button {
+  display: grid;
+  gap: 2;
+}
+.main-view {
+  background-color: black;
 }
 /*# sourceMappingURL=index.caa67093.css.map */

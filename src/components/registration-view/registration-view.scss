@@ -1,28 +1,4 @@
-*,
-body {
-    box-sizing: border-box;
-}
-
-form {
-    display: inline-block;
-    text-align: center;
-    width: 300px;
-    margin: 20px;
-    margin-top: 20px;
-    padding: 5px;
-    border-radius: 10px;
-    background-color: lightblue;
-}
-
-label,
-.signUpBtn {
-    display: block;
-    width: 200px;
-    margin: auto;
-    padding: 5px;
-}
-
-.signUpBtn {
-    width: 100px;
-    margin-top: 5px;
+.register-button {
+    display: grid;
+    gap: 2;
 }

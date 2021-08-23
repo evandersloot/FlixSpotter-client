@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MainView } from './components/main-view/main-view';
 import Container from 'react-bootstrap/Container';
+
+import { MainView } from './components/main-view/main-view';
 
 // Import statement to indicate you need to bundle `./index.scss`
 import './index.scss';
@@ -10,7 +11,7 @@ import './index.scss';
 class FlixSpotterApplication extends React.Component {
   render() {
     return (
-      <Container>
+      <Container className="main-container">
         <MainView />
       </Container>
     );
