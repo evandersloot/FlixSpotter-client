@@ -17,11 +17,6 @@ body {
   background-color: white;
   height: 100%;
 }
-.open-button {
-  display: grid;
-  gap: 2;
-  color: blue;
-}
 .movieView {
   text-align: center;
   background-color: black;
@@ -46,4 +41,9 @@ body {
 .main-view {
   background-color: black;
 }
+.open-button {
+  display: grid;
+  gap: 2;
+}
+
 /*# sourceMappingURL=index.caa67093.css.map */
