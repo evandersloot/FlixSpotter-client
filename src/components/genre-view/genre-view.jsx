@@ -5,18 +5,18 @@ import Button from 'react-bootstrap/Button';
 
 export class GenreView extends React.Component {
     render () {
-        const { movie, onBackClick } = this.props;
+        const { genre, onBackClick } = this.props;
         
         return (
-            <div className="genre-view">
+            <div className="genre-view text-light">
                 <div className="genre-name">
                     <h1>
-                        <span className="value">{movie.Genre.Name}</span>
+                        <span className="value">{genre.Name}</span>
                     </h1>    
                 </div>
                 <div className="genre-bio">
-                    <span className="value">{movie.Genre.Description}</span>
-                </div>
+                    <span className="value">{genre.Description}</span>
+                </div><br />
                 <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button>
             </div>
         );
@@ -24,7 +24,7 @@ export class GenreView extends React.Component {
 }
 
 GenreView.propTypes = {
-    Genre: propTypes.shape({
+    genre: propTypes.shape({
         Name: propTypes.string.isRequired,
         Description: propTypes.string.isRequired
     })
