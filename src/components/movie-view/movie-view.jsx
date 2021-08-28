@@ -10,28 +10,28 @@ import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
-  addFavorite() {
+  handleAdd() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
-    axios.post('https://flixspotter.herokuapp.com/users/${user}/movies/${this.props.movie._id}', {}, {
-      headers: { Authorization: 'Bearer ${token}' }
+    axios.post(`https://flixspotter.herokuapp.com/users/${username}/movies/${this.props.movie._id}`, {}, {
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .then(response => {
-        alert(this.props.movie.Title + 'has been added to your favorites list!')
+      .then( () => {
+        alert(this.props.movie.Title + ' has been added to your favorites list!')
       })
       .catch(e => {
         console.log('an error has occurred');
       });
   }
 
-  removeFavorite() {
+  handleRemove() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
-    axios.delete('https://flixspotter.herokuapp.com/users/${user}/movies/remove/${this.props.movie._id}', {}, {
-      headers: { Authorization: 'Bearer ${token}' }
+    axios.post(`https://flixspotter.herokuapp.com/users/${username}/movies/remove/${this.props.movie._id}`, {}, {
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .then(response => {
-        alert(this.props.movie.Title + 'has been removed from your favorites!')
+      .then( () => {
+        alert(this.props.movie.Title + ' has been removed from your favorites!')
       })
       .catch(e => {
         console.log('an error has occurred');
@@ -58,26 +58,26 @@ export class MovieView extends React.Component {
 
           <div className="movie-director">
             <span className="label">Directed by:  
-              <Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link>
+              <br /><Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link>
             </span>             
           </div><br />
           
           <div className="movie-genre">
             <span className="label">Genre: 
-              <Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link>
+              <br /><Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link>
             </span>
           </div><br />
           
           <div className="back-button">
             <Button variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button> 
           <span> </span>
-          <Link to={`/movies/${movie.Title}`}>
-            <Button variant="success" onClick={() => this.addFavorite(movie)}>Add to Favorites</Button>
-          </Link>  
+          
+            <Button variant="success" onClick={() => this.handleAdd(movie._id)}>Add to Favorites</Button>
+          
           </div>
           <div><br />
           <Link to={`/movies/${movie.Title}`}>
-            <Button variant="danger" size="sm" onClick={() => this.removeFavorite(movie)}>Remove from Favorites</Button> 
+            <Button variant="danger" size="sm" onClick={() => this.handleRemove(movie)}>Remove from Favorites</Button> 
           </Link> 
           </div>          
         </div>
@@ -96,6 +96,6 @@ MovieView.propTypes = {
     }).isRequired,
     Director: propTypes.shape({
       Name: propTypes.string.isRequired
-    })
+    }).isRequired
   })
 }
