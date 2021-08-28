@@ -12,6 +12,7 @@ import './registration-view.scss';
 import logo from '../img/logo.png';
 
 export function RegistrationView(props) {
+    
     const [ name, setName ] = useState('');
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -28,7 +29,7 @@ export function RegistrationView(props) {
         e.preventDefault();
         const isValid = formValidation();
         if (isValid) {
-            axios.post('https://flixspotter.herokuapp.com/users', {
+            axios.post(`https://flixspotter.herokuapp.com/users`, {
                 name: name,
                 username: username,
                 password: password,
@@ -81,7 +82,7 @@ export function RegistrationView(props) {
     }
 
     return (
-        <Col md={8} className="mx-auto">
+        <Col md={8} className="mx-auto text-light">
             <Row className="d-flex mt-2 justify-content-center">
                     <Image className="w-75 h-25 m-auto" src={logo} />
                     <h3 className="text-center">Please fill in all fields to sign up!</h3>
@@ -116,7 +117,7 @@ export function RegistrationView(props) {
                             
                             <Form.Group className="mb-3" controlId="formPassword">
                                 <Form.Label>Password:</Form.Label>
-                                <Form.Control type="text" placeholder="Set a Password" value={password} onChange={ e => setPassword(e.target.value)} />
+                                <Form.Control type="password" placeholder="Set a Password" value={password} onChange={ e => setPassword(e.target.value)} />
                                 {Object.keys(passwordError).map((key) => {
                                     return (
                                         <div key={key}>
