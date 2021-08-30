@@ -10,21 +10,21 @@ import './profile-view.scss';
 export class ProfileView extends React.Component {
   constructor() {
     super();
+    (this.Username = null), (this.Password = null), (this.Email = null);
     this.state = {
-      name: null,
-      username: null,
-      password: null,
-      email: null,
-      birthday: null,
-      favorites: [],
+      Username: null,
+      Password: null,
+      Email: null,
+      FavoriteMovies: [],
+      validated: null
     }
   }
-  componentDidMount() {
-    const accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-        this.getUser(accessToken);
+    componentDidMount() {
+        const accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.getUser(accessToken);
+        }
     }
-  }
 
     getUser(token) {
         const username = localStorage.getItem('user');
@@ -38,7 +38,7 @@ export class ProfileView extends React.Component {
             Password: response.data.Password,
             Email: response.data.Email,
             Birthday: response.data.Birthday,
-            Favorites: response.data.Favorites
+            FavoriteMoviess: response.data.FavoriteMoviess
         });
         })
         .catch(function (error) {
@@ -46,14 +46,14 @@ export class ProfileView extends React.Component {
         });
     }
 
-    handleRemove(e, movie) {
-        e.preventDefault();
+    handleRemove(e) {
+        e.preventDefautlt();
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
-        axios.delete(`https://flixspotter.herokuapp.com/users/${username}/movies/${movie}`,{
+        axios.delete(`https://flixspotter.herokuapp.com/users/${username}/movies/${movie}`, {
         headers: { Authorization: `Bearer ${token}` }
         })
-        .then(() => {
+        .then((response) => {
             alert(this.props.movie.Title + 'has been removed from your favorites!')
         })
         .catch(function (error) {
@@ -87,18 +87,15 @@ export class ProfileView extends React.Component {
                  
         })
         .then((response) => {
-            alert('Your changes have been saved!');
             this.setState({
-                Name: response.data.Name,
                 Username: response.data.Username,
                 Password: response.data.Password,
                 Email: response.data.Email,
-                Birthdate: response.data.Birthdate,
             });
+            alert('Your changes have been saved!');
             localStorage.setItem('user', this.state.Username);
-            window.open(`/users/${username}`, '_self');
         })
-        .catch(e => {
+        .catch(function (error) {
             console.log(error);
         });
       }
@@ -131,26 +128,25 @@ export class ProfileView extends React.Component {
         });
     }
 
-    render() {
-        const { movies } = this.props;
-        const { favorites, validated } = this.state;
+    render() {       
+        const { FavoriteMovies, validated } = this.state;
         const username = localStorage.getItem('user');
+        const { movies } = this.props;
 
         return (
-            <Container className='profile-view'>
-            <Tabs defaultActiveKey='profile' transition={false} className='profile-tabs'>
+            <Container className="profile-view">
+            <Tabs defaultActiveKey="profile" transition={false} className="profile-tabs">
     
-              <Tab className='tab-item' eventKey='profile' title='Profile'>
-                <Card className='profile-card' border='info'>
-                  <Card.Title className='profile-title'>{username}'s Favorite Movies</Card.Title>
-                  {favorites.length === 0 && <div className='card-content'>You don't have any favorite movies yet!</div>}
-                  <div className='favorites-container'>
-                    {favorites.length > 0 &&
-                      movies.map((movie) => {
-                        if (movie._id === favorites.find((favMovie) => favMovie === movie._id)) {
+              <Tab className="tab-item" eventKey="profile" title="Profile">
+                <Card className="profile-card" border="info">
+                  <Card.Title className="text-center">{username}'s Favorite Movies</Card.Title>
+                  {FavoriteMovies.length < 1 && <div className="card-content">You're slacking! You don't like Movies?</div>}
+                  <div className="favorites-container">
+                    {FavoriteMovies.length > 0 && movies.map((movie) => {
+                        if (movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)) {
                          return (
-                          <div key={movie._id}>
-                            <Card className="h-100 mt-2 pt-1">
+                         
+                            <Card className="h-100 mt-2 pt-1" key={movie._id} >
                               <Link to={`/movies/${movie._id}`}>
                                 <Card.Img variant='top' src={movie.ImagePath} />
                               </Link>
@@ -160,13 +156,13 @@ export class ProfileView extends React.Component {
                               </Card.Body>
                               <Card.Footer>   
                               <Link to={`/movies/${movie._id}`}>
-                                <div className="open-button">
-                                <Button variant="primary">Open</Button>
+                                <div className="remove-button">
+                                <Button variant="danger" size="sm" onClick={(e) => this.handleRemove(movie._id)}>Remove from Favorites</Button>
                                 </div>
                               </Link>
                               </Card.Footer>
                             </Card>                                     
-                          </div>
+                          
                           )
                         }}  
                       )
@@ -174,30 +170,30 @@ export class ProfileView extends React.Component {
                 </div>
                 </Card>
               </Tab>
-              <Tab className='tab-item' eventKey='update' title='Update'>
-                <Card className='update-card' border='info'>
-                <Card.Title className='profile-title'>Update Profile</Card.Title>
-                <Card.Subtitle className='card-subtitle-update'>Update each field you wish to make changes to.</Card.Subtitle>
+              <Tab className="tab-item" eventKey="update" title="Update">
+                <Card className="update-card" border="info">
+                <Card.Title className="profile-title">Update Profile</Card.Title>
+                <Card.Subtitle className="card-subtitle-update">Update each field you wish to make changes to.</Card.Subtitle>
                 <Card.Body>
-                    <Form noValidate validated={validated} className='update-form' onSubmit={(e) => this.handleUpdate(e, this.Username, this.Password, this.Email)}>
-                    <Form.Group controlId='formBasicUsername'>
-                        <Form.Label className='form-label'>Username</Form.Label>
-                        <Form.Control type='text' placeholder='Change Username' onChange={(e) => this.setUsername(e.target.value)} />
-                        <Form.Control.Feedback type='invalid'>Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
+                    <Form noValidate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.Username, this.Password, this.Email)}>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label className="form-label">Username</Form.Label>
+                        <Form.Control type="text" placeholder="Change Username" onChange={(e) => this.setUsername(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId='formBasicPassword'>
-                        <Form.Label className='form-label'>
-                        Password <span className='required'>*</span>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label className="form-label">
+                        Password <span className="required">*</span>
                         </Form.Label>
-                        <Form.Control type='password' placeholder='Current or New Password' onChange={(e) => this.setPassword(e.target.value)} />
-                        <Form.Control.Feedback type='invalid'>Please enter a valid password with at least 5 characters.</Form.Control.Feedback>
+                        <Form.Control type="password" placeholder="Current or New Password" onChange={(e) => this.setPassword(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">Please enter a valid password with at least 5 characters.</Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId='formBasicEmail'>
-                        <Form.Label className='form-label'>Email</Form.Label>
-                        <Form.Control type='email' placeholder='Change Email' onChange={(e) => this.setEmail(e.target.value)} />
-                        <Form.Control.Feedback type='invalid'>Please enter a valid email address.</Form.Control.Feedback>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label className="form-label">Email</Form.Label>
+                        <Form.Control type="email" placeholder="Change Email" onChange={(e) => this.setEmail(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">Please enter a valid email address.</Form.Control.Feedback>
                     </Form.Group>
-                    <Button className='update-profile-button' type='submit' variant='info'>
+                    <Button className="update-profile-button" type="submit" variant="info">
                         Update
                     </Button>
                     </Form>
@@ -224,14 +220,13 @@ export class ProfileView extends React.Component {
       
 ProfileView.propTypes = {
 user: propTypes.shape({
-    favorites: propTypes.arrayOf(
+    FavoriteMovies: propTypes.arrayOf(
     propTypes.shape({
         _id: propTypes.string.isRequired,
-        Title: propTypes.string.isRequired,
     })
     ),
     Username: propTypes.string.isRequired,
     Email: propTypes.string.isRequired,
-    Birthday: propTypes.string,
+    Password: propTypes.string,
 })
 };
