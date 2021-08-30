@@ -84,8 +84,8 @@ export function RegistrationView(props) {
     return (
         <Col md={8} className="mx-auto text-light">
             <Row className="d-flex mt-2 justify-content-center">
-                    <Image className="w-75 h-25 m-auto" src={logo} />
-                    <h3 className="text-center">Please fill in all fields to sign up!</h3>
+                    <Image className="w-100 m-auto" src={logo} />
+                    <h4 className="text-center">Please fill in all fields to sign up!</h4>
             </Row>
            
                 <Row className="d-flex">
