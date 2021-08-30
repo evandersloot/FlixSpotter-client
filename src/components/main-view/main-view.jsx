@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 
-import { Row, Col, Navbar, Nav, Form, Button } from 'react-bootstrap';
+import { Row, Col, Container, Form, Button, Image } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -14,6 +15,7 @@ import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 
 import "./main-view.scss";
+import logo from '../img/logo.png';
 
 
 export class MainView extends React.Component {
@@ -87,29 +89,33 @@ export class MainView extends React.Component {
       
       return (
         <Router> 
-          <div className="main-view">
+          <div>
             <header>
-              <Navbar expand="lg" fixed="top" className='nav-bar'>
-                <Navbar.Brand className='app-name navbar-brand' as={Link} to={`/`} target='_self'>FlixSpotter</Navbar.Brand>
+              <Navbar expand="lg" fixed="top" className="nav-bar">
+                <Navbar.Brand className="app-name navbar-brand" as={Link} to={`/`} target='_self'>
+                <Image className="w-100 h-25 m-auto" src={logo} />
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                     {user &&
-                      <Nav.Link as={Link} to={`/users/${user}`} target='_self' className='navbar-item'>My Account</Nav.Link>
+                      <Nav.Link as={Link} to={`/users/${user}`} target='_self' className="justify-content-md-end text-light">My Account</Nav.Link>
                     }
                   </Nav>
                   <Form className="inline">
                     {user &&
                       <Link to={`/`}>
-                        <Button variant="dark" className='logout-button' onClick={() => this.onLogout()}>Logout</Button>
+                        <Button variant="dark" className="logout-button" onClick={() => this.onLoggedout()}>Logout</Button>
                       </Link>
                     }
                   </Form>
                 </Navbar.Collapse>
               </Navbar>
-            </header> 
-
-            <Row className="main-view justify-content-md-center">
+            </header>
+            </div>
+            
+            <Container><br />
+            <Row className="main-view mt-2 pb-2 h-100">
               {/* Main View */}
               <Route exact path="/" render={() => {
                 if (!user) return  <Col>
@@ -117,7 +123,7 @@ export class MainView extends React.Component {
                 </Col>
                 if (movies.length === 0) return <div className="main-view" />;
                 return movies.map(m => (
-                  <Col md={3} key={m._id}>
+                  <Col className="pb-2" md={3} key={m._id}>
                     <MovieCard movie={m} />
                   </Col>
                 ))
@@ -172,8 +178,8 @@ export class MainView extends React.Component {
                 if (movies.length === 0) return <div className="mainView" />;
                 return <ProfileView history={history} movies={movies} />
               }} />
-            </Row>
-          </div>
+            </Row>       
+          </Container>
         </Router>
       );
     }
