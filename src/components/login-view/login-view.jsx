@@ -23,15 +23,17 @@ export function LoginView(props) {
             props.onLoggedIn(data);
         })
         .catch(e => {
-            console.log('No Such User')
+            alert('No such user. Please Register')
         });
     };
 
+    
+
     return (
-        <Col md={8} className="mx-auto">
-            <Row className="d-flex mt-2 justify-content-center text-light">
-                <Image className="w-75 h-25 m-auto" src={logo} />
-                <h3 className="text-center">Sign in with your Username and Password</h3>
+        <Col md={8} className="login-view mx-auto">
+            <Row className="d-flex justify-content-center text-light">
+                <Image className="w-75" src={logo} />
+                <h4 className="text-center">Sign in with your Username and Password</h4>
             </Row>
             <Row>
                 <Form className="d-flex h-75 w-100 justify-content-center">
