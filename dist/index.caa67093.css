@@ -1,21 +1,21 @@
-.main-container {
-  width: 100%;
+html, body {
+  font-size: 20px;
+  font-family: "Oswald", sans-serif;
+  background: #000000;
+  margin: 0;
+  padding: 0;
   height: 100%;
+  position: relative;
 }
 
-body {
+.main-container {
+  margin-top: 5px;
   background-color: #000000;
 }
 
 .app-container {
   background-color: #000000;
-  height: 100%;
-  padding-bottom: 5px;
-}
-
-.container {
-  background-color: white;
-  height: 100%;
+  padding: 5px;
 }
 .movieView {
   text-align: center;
@@ -34,6 +34,10 @@ body {
   display: grid;
   gap: 2;
 }
+
+.nav-bar {
+  display: none;
+}
 .register-button {
   display: grid;
   gap: 2;
@@ -41,9 +45,97 @@ body {
 .main-view {
   background-color: black;
 }
+
+.nav-bar {
+  position: relative;
+  display: flex;
+  background-image: linear-gradient(to right, black 0%, #08145c 50%);
+}
 .open-button {
   display: grid;
   gap: 2;
 }
+.profile-view {
+  margin: 4em auto;
+  text-align: center;
+}
 
+.profile-card,
+.update-card {
+  border: none;
+}
+
+.profile-title {
+  font-size: 30px;
+  padding: 20px;
+}
+
+.card-subtitle-update {
+  text-align: center;
+  margin: 0 30px;
+}
+
+.password-instructions {
+  display: block;
+  margin-top: 10px;
+}
+
+.card-content {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  border: none;
+}
+
+.movie-card-title {
+  margin-top: 15px;
+}
+
+.favorites-card {
+  width: 50%;
+  float: left;
+  width: fit-content;
+  border: none;
+  margin: 10px 20px;
+  position: relative;
+  /* For positioning the pseudo-element */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.favorites-card::before {
+  /* Position the pseudo-element. */
+  content: " ";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* Create the box shadow at expanded size. */
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+  /* Hidden by default. */
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.favorites-card:hover::before {
+  opacity: 1;
+}
+
+.favorites-movie {
+  width: 70%;
+  float: center;
+}
+
+.fav-subtitle {
+  font-size: 16px;
+}
+
+.remove-favorite,
+.view-movie {
+  margin: 0 10px;
+}
+
+.update-form {
+  margin-top: 10px;
+}
 /*# sourceMappingURL=index.caa67093.css.map */

@@ -1,25 +1,24 @@
 //Primary color
 $black: #000000;
 
-//Secondary color
-$blue: blue;
-
-.main-container {
-  width: 100%;
+html, body{
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+  background: $black;
+  margin: 0;
+  padding: 0;
   height: 100%;
+  position: relative;
 }
 
-body {
+.main-container {
+  margin-top: 5px;
   background-color: $black;
+  
 }
 
 .app-container {
   background-color: $black;
-  height: 100%;
-  padding-bottom: 5px;
+  padding: 5px;
 }
 
-.container {
-  background-color: white;
-  height: 100%;
-}

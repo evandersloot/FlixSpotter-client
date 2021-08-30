@@ -6,23 +6,23 @@ import Button from 'react-bootstrap/Button';
 export class DirectorView extends React.Component {
 
     render () {
-    const { movie, onBackClick } = this.props;
+    const { director, onBackClick } = this.props;
     
     return (
-        <div className="director-view">
+        <div className="director-view text-light">
             <div className="director-name">
                 <h1>
-                   <span className="value">{movie.Director.Name}</span>
+                   <span className="value">{director.Name}</span>
                 </h1>  
             </div>
             <div className="director-bio">
-                <span className="value">{movie.Director.Bio}</span>
+                <span className="value">{director.Bio}</span>
             </div>
             <div>
-                <span className="value">{movie.Director.Birth}</span>
+                <span className="value">{director.Birth}</span>
             </div>   
             <div>
-                <span className="value">{movie.Director.Death}</span>
+                <span className="value">{director.Death}</span>
             </div>
             <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button>
         </div>
@@ -31,7 +31,7 @@ export class DirectorView extends React.Component {
 }
 
 DirectorView.propTypes = {
-    Director: propTypes.shape({
+    director: propTypes.shape({
         Name: propTypes.string.isRequired,
         Bio: propTypes.string.isRequired,
         Birth: propTypes.string,
