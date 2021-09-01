@@ -10,11 +10,13 @@ import './profile-view.scss';
 export class ProfileView extends React.Component {
   constructor() {
     super();
-    (this.username = null), (this.password = null), (this.email = null);
+
     this.state = {
+      name: null,
       username: null,
       password: null,
       email: null,
+      birthday: null,
       FavoriteMovies: [],
       validated: null
     }
@@ -31,11 +33,13 @@ export class ProfileView extends React.Component {
         axios.get(`https://flixspotter.herokuapp.com/users/${username}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
-        .then((response) => {
+        .then(response => {
         this.setState({
-            username: response.data.Username,
-            password: response.data.Password,
-            email: response.data.Email,
+            name: response.data.name,
+            username: response.data.username,
+            password: response.data.password,
+            email: response.data.email,
+            birthday: response.data.birthday,
             FavoriteMovies: response.data.FavoriteMovies
         });
         })
@@ -60,53 +64,66 @@ export class ProfileView extends React.Component {
         });
     } 
 
-    handleUpdate(e, newUsername, newPassword, newEmail) {
+    handleUpdate(e) {
         this.setState({
-            validated: null,
+            validated: null
         });
-        const form = e.target;
+        const form = e.currentTarget
         if (form.checkValidity() === false) {
-            e.preventDefault();
+            e.preventDefault()
+            e.stopPropagation()
             this.setState({
                 validated: true,
-            });
-            return;
+            })
+            return
         }
-        e.preventDefautlt();
+        e.preventDefault() 
     
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
+
         axios.put(`https://flixspotter.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },    
-            data: {
-                username: newUsername ? newUsername : this.state.username,
-                password: newPassword ? newPassword : this.state.password,
-                email: newEmail ? newEmail : this.state.email
+            name: this.state.name,
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            birthday: this.state.birthday
             },
-                 
+            {
+                headers: { Authorization: `Bearer ${token}` },    
         })
-        .then((response) => {
+        .then(response => {
+            const data = response.data;
+            alert('Your changes have been saved!')
             this.setState({
-                username: response.data.username,
-                password: response.data.password,
-                email: response.data.email,
-            });
-            alert('Your changes have been saved!');
-            localStorage.setItem('user', this.state.username);
+                name: data.name,
+                username: data.username,
+                password: data.password,
+                email: data.email,
+                birthday: data.birthday,
+            })
+            localStorage.setItem('user', this.state.username)
+            window.open(`/users/${username}`, '_self')
         })
         .catch(function (error) {
-            console.log(error);
+            console.log(error)
         });
       }
+
+      setUsername(username) {
+        this.setState({username})
+      }
     
-      setUsername(input) {
-          this.username = input;
+      setPassword(password) {
+        this.setState({password})
       }
-      setPassword(input) {
-          this.password = input;
+    
+      setEmail(email) {
+        this.setState({email})
       }
-      setEmail(input) {
-          this.email = input;
+    
+      setBirthday(birthday) {
+        this.setState({birthday})
       }
 
     handleDelete(e) {
@@ -128,7 +145,8 @@ export class ProfileView extends React.Component {
     }
 
     render() {       
-        const { FavoriteMovies, validated, username, email } = this.state;
+        const { FavoriteMovies, validated, password, email, birthday } = this.state;
+        const username = localStorage.getItem('user');
         const { movies } = this.props;
 
         return (
@@ -168,31 +186,34 @@ export class ProfileView extends React.Component {
                 </Card>
               </Tab>
               <Tab className="tab-item" eventKey="update" title="Update">
-                <Card className="update-card" border="info">
-                <Card.Title className="profile-title">Update Profile</Card.Title>
+                <Card className="update-card">
+                <Card.Title className="profile-title">Update {username}'s Profile</Card.Title>
                 <Card.Subtitle className="card-subtitle-update">Please fill in every field.</Card.Subtitle>
                 <Card.Body>
-                    <Form noValidate validated={validated} className="update-form" onSubmit={e => this.handleUpdate(e, this.username, this.password, this.email)}>
+                    <Form noValidate validated={validated} className="update-form" onSubmit={e => this.handleUpdate(e, this.name, this.username, this.password, this.email, this.birthday)}>
                     <Form.Group controlId="formBasicUsername">
                         <Form.Label className="form-label">Username</Form.Label>
-                        <Form.Control type="text" placeholder="Change Username" defaultValue={username} onChange={e => this.setUsername(e.target.value)} />
+                        <Form.Control type="text" placeholder="Change Username" name="username" onChange={e => this.setUsername(e.target.value)} />
                         <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label className="form-label">
                         Password <span className="required">*</span>
                         </Form.Label>
-                        <Form.Control type="password" placeholder="Current or New Password" defaultValue="" onChange={e => this.setPassword(e.target.value)} />
+                        <Form.Control type="password" placeholder="Current or New Password" onChange={e => this.setPassword(e.target.value)} />
                         <Form.Control.Feedback type="invalid">Please enter a valid password with at least 8 characters.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label className="form-label">Email</Form.Label>
-                        <Form.Control type="email" placeholder="Change Email" defaultValue={email} onChange={e => this.setEmail(e.target.value)} />
+                        <Form.Control type="email" placeholder="Change Email" onChange={e => this.setEmail(e.target.value)} />
                         <Form.Control.Feedback type="invalid">Please enter a valid email address.</Form.Control.Feedback>
                     </Form.Group>
-                    <Button className="update-profile-button" type="submit" variant="info">
-                        Update
-                    </Button>
+                    <Form.Group controlId="formBasicBirthday">
+                        <Form.Label className="form-label">Username</Form.Label>
+                        <Form.Control type="date" placeholder="Change Birthday" onChange={e => this.setBirthday(e.target.value)} />
+                        <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
+                    </Form.Group>
+                    <Button className="update-button mt-2" type="submit" variant="info">Update</Button>
                     </Form>
                 </Card.Body>
                 </Card>
