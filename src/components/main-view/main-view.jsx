@@ -30,12 +30,12 @@ export class MainView extends React.Component {
 
     componentDidMount() {
       const accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-          this.setState({
-            user: localStorage.getItem('user')
-          });
-          this.getMovies(accessToken);
-        }
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        });
+        this.getMovies(accessToken);
+      }
     }
 
     onLoggedIn(authData) {
@@ -48,7 +48,7 @@ export class MainView extends React.Component {
       this.getMovies(authData.token);
     }
 
-    getUser(token) {
+    /* getUser(token) {
       axios.get(`https://flixspotter.herokuapp.com/users`, {
         headers: { Authorization: `Bearer ${token}`}
       })
@@ -60,7 +60,7 @@ export class MainView extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-    }
+    } */
     
     getMovies(token) {
       axios.get(`https://flixspotter.herokuapp.com/movies`, {
@@ -99,7 +99,7 @@ export class MainView extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                     {user &&
-                      <Nav.Link as={Link} to={`/users/${user}`} target='_self' className="justify-content-md-end text-light">My Account</Nav.Link>
+                      <Nav.Link as={Link} to={`/users/${user}`} target='_self' className="text-light">My Account</Nav.Link>
                     }
                   </Nav>
                   <Form className="inline">
@@ -173,9 +173,9 @@ export class MainView extends React.Component {
               }} />
 
               {/* Profile View */}
-              <Route path="/users/:username" render={({ history }) => {
+              <Route exact path="/users/:username" render={({ history }) => {
                 if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
-                if (movies.length === 0) return <div className="mainView" />;
+                if (movies.length === 0) return;
                 return <ProfileView history={history} movies={movies} />
               }} />
             </Row>       
