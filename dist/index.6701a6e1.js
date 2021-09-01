@@ -40544,7 +40544,7 @@ class ProfileView extends _reactDefault.default.Component {
                 Authorization: `Bearer ${token}`
             }
         }).then(()=>{
-            alert(`${movie.Title} was removed from Favorites`);
+            alert(`${movie.Title} has been deleted from your favorites!`);
             this.componentDidMount();
         }).catch(function(error) {
             console.log(error);

@@ -52,7 +52,7 @@ export class ProfileView extends React.Component {
         headers: { Authorization: `Bearer ${token}` }
         })
         .then(() => {
-            alert(`${movie.Title} was removed from Favorites`);
+            alert(`${movie.Title} has been deleted from your favorites!`);
             this.componentDidMount()
         })
         .catch(function (error) {
