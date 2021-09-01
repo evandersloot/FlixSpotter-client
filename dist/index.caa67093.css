@@ -17,19 +17,6 @@ html, body {
   background-color: #000000;
   padding: 5px;
 }
-.movieView {
-  text-align: center;
-  background-color: black;
-}
-
-.back-movies {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.movie-title, .movie-director, .movie-genre {
-  text-decoration: underline;
-}
 .login-button {
   display: grid;
   gap: 2;
@@ -42,14 +29,18 @@ html, body {
   display: grid;
   gap: 2;
 }
-.main-view {
+.movieView {
+  text-align: center;
   background-color: black;
 }
 
-.nav-bar {
-  position: relative;
-  display: flex;
-  background-image: linear-gradient(to right, black 0%, #08145c 50%);
+.back-movies {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.movie-title, .movie-director, .movie-genre {
+  text-decoration: underline;
 }
 .open-button {
   display: grid;
@@ -68,5 +59,15 @@ html, body {
   width: 12rem;
   float: left;
   margin-left: 5px;
+}
+.main-view {
+  background-color: black;
+  justify-content: center;
+}
+
+.nav-bar {
+  position: relative;
+  display: flex;
+  background-image: linear-gradient(to right, black 0%, #08145c 50%);
 }
 /*# sourceMappingURL=index.caa67093.css.map */
