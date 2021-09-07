@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
-
 import { Row, Col, Container, Form, Button, Image } from 'react-bootstrap';
 import { Navbar, Nav } from 'react-bootstrap';
 
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -18,12 +21,11 @@ import "./main-view.scss";
 import logo from '../img/logo.png';
 
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
 
     constructor() {
       super();
         this.state = {
-          movies: [],
           user: null,
         };
     }
@@ -47,29 +49,13 @@ export class MainView extends React.Component {
       localStorage.setItem('user', authData.user.username);
       this.getMovies(authData.token);
     }
-
-    /* getUser(token) {
-      axios.get(`https://flixspotter.herokuapp.com/users`, {
-        headers: { Authorization: `Bearer ${token}`}
-      })
-      .then(response => {
-        this.setState({
-          users: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    } */
     
     getMovies(token) {
       axios.get(`https://flixspotter.herokuapp.com/movies`, {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -85,7 +71,8 @@ export class MainView extends React.Component {
     } 
 
     render() {
-      const { user, movies } = this.state;
+      const { movies } = this.props;
+      const { user } = this.state;
       
       return (
         <Router> 
@@ -122,11 +109,7 @@ export class MainView extends React.Component {
                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 </Col>
                 if (movies.length === 0) return <div className="main-view" />;
-                return movies.map(m => (
-                  <Col className="pb-2" md={3} key={m._id}>
-                    <MovieCard movie={m} />
-                  </Col>
-                ))
+                return <MoviesList movies={movies} />;
               }} />
 
               {/* Register View */}
@@ -184,5 +167,8 @@ export class MainView extends React.Component {
       );
     }
 }
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
 
-export default MainView;
+export default connect(mapStateToProps, { setMovies } )(MainView);
