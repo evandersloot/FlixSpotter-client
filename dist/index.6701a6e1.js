@@ -39871,7 +39871,7 @@ class MovieView extends _reactDefault.default.Component {
     };
     render() {
         const { movie , onBackClick  } = this.props;
-        const { FavoriteMovies , favorite  } = this.state;
+        const { favorite  } = this.state;
         if (!movie) return null;
         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Container, {
             className: "movieView text-light mt-2",
@@ -40631,7 +40631,7 @@ class ProfileView extends _reactDefault.default.Component {
         });
     }
     render() {
-        const { FavoriteMovies , validated , password , email , birthday  } = this.state;
+        const { FavoriteMovies , validated  } = this.state;
         const username = localStorage.getItem('user');
         const { movies  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Container, {
@@ -41089,7 +41089,8 @@ class ProfileView extends _reactDefault.default.Component {
 ProfileView.propTypes = {
     user: _propTypesDefault.default.shape({
         FavoriteMovies: _propTypesDefault.default.arrayOf(_propTypesDefault.default.shape({
-            _id: _propTypesDefault.default.string.isRequired
+            _id: _propTypesDefault.default.string.isRequired,
+            Title: _propTypesDefault.default.string.isRequired
         })),
         username: _propTypesDefault.default.string.isRequired,
         email: _propTypesDefault.default.string.isRequired,
