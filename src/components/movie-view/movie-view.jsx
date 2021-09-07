@@ -38,7 +38,7 @@ export class MovieView extends React.Component {
 
   render() {
     const { movie, onBackClick } = this.props;
-    const { FavoriteMovies, favorite} = this.state;
+    const { favorite} = this.state;
 
     if (!movie) return null;
 

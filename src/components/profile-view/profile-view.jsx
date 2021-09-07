@@ -145,7 +145,7 @@ export class ProfileView extends React.Component {
     }
 
     render() {       
-        const { FavoriteMovies, validated, password, email, birthday } = this.state;
+        const { FavoriteMovies, validated } = this.state;
         const username = localStorage.getItem('user');
         const { movies } = this.props;
 
@@ -241,6 +241,7 @@ user: propTypes.shape({
     FavoriteMovies: propTypes.arrayOf(
     propTypes.shape({
         _id: propTypes.string.isRequired,
+        Title: propTypes.string.isRequired
     })
     ),
     username: propTypes.string.isRequired,
