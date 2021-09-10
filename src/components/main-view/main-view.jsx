@@ -2,11 +2,12 @@ import React from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Row, Col, Container, Form, Button, Image } from 'react-bootstrap';
 import { Navbar, Nav } from 'react-bootstrap';
 
 import { setMovies } from '../../actions/actions';
+import { setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
@@ -32,27 +33,31 @@ class MainView extends React.Component {
 
     componentDidMount() {
       const accessToken = localStorage.getItem('token');
+      const user = localStorage.getItem('user');
       if (accessToken !== null) {
         this.setState({
           user: localStorage.getItem('user')
         });
-        this.getMovies(accessToken);
+        this.getUser(user, accessToken);
+        this.getMovies(accessToken);  
       }
     }
 
-    onLoggedIn(authData) {
-      console.log(authData);
-      this.setState({
-        user: authData.user.username
+    getUser(username, token) {
+      axios.get(`https://flixspotter.herokuapp.com/user/${username}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(response => {
+        this.props.setUser(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.username);
-      this.getMovies(authData.token);
     }
-    
+
     getMovies(token) {
       axios.get(`https://flixspotter.herokuapp.com/movies`, {
-        headers: { Authorization: `Bearer ${token}`}
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {
         this.props.setMovies(response.data)
@@ -61,26 +66,36 @@ class MainView extends React.Component {
         console.log(error);
       });
     }
+
+    onLoggedIn(authData) {
+      console.log(authData);
+      this.props.setUser(authData.user);
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.username);
+      this.getMovies(authData.token);  
+      console.log('Logged in');
+      window.open('/', '_self');
+    }
  
     onLoggedout() {
+      this.props.setUser(null);
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      this.setState({
-      user: null
-      });
+      console.log('Logged out')
+      window.open('/', '_self');
     } 
 
     render() {
-      const { movies } = this.props;
       const { user } = this.state;
+      const { movies } = this.props;
       
       return (
         <Router> 
           <div>
-            <header>
+            <header className="mb-4">
               <Navbar expand="lg" fixed="top" className="nav-bar">
-                <Navbar.Brand className="app-name navbar-brand" as={Link} to={`/`} target='_self'>
-                <Image className="w-100 h-25 m-auto" src={logo} />
+                <Navbar.Brand className="navbar-brand" as={Link} to={`/`} target='_self'>
+                  <Image className="w-100 h-25 m-auto" src={logo} />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -102,7 +117,7 @@ class MainView extends React.Component {
             </div>
             
             <Container><br />
-            <Row className="main-view mt-2 pb-2 h-100">
+            <Row className="main-view">
               {/* Main View */}
               <Route exact path="/" render={() => {
                 if (!user) return  <Col>
@@ -128,7 +143,7 @@ class MainView extends React.Component {
                   <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 </Col>
                 if (movies.length === 0) return <div className="main-view" />;
-                return <Col md={8}>
+                return <Col xs={10} md={8}>
                   <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
                 </Col>
               }} />
@@ -139,7 +154,7 @@ class MainView extends React.Component {
                   <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 </Col>
                 if (movies.length === 0) return <div className="main-view" />;
-                return <Col md={8}>
+                return <Col xs={10} md={8} className="mt-5">
                   <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
                 </Col>
               }} />
@@ -150,14 +165,14 @@ class MainView extends React.Component {
                   <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 </Col>
                 if (movies.length === 0) return <div className="main-view" />;
-                return <Col md={8}>
+                return <Col xs={10} md={8} className="mt-5">
                   <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
                 </Col>
               }} />
 
               {/* Profile View */}
               <Route exact path="/users/:username" render={({ history }) => {
-                if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
+                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 if (movies.length === 0) return;
                 return <ProfileView history={history} movies={movies} />
               }} />
@@ -168,7 +183,7 @@ class MainView extends React.Component {
     }
 }
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, user: state.user }
 }
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);

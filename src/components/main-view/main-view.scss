@@ -4,8 +4,9 @@
 }
 
 .nav-bar {
-    position: relative;
+    position: fixed;
     display: flex;
+    margin-bottom: 0px;
     background-image: linear-gradient(
         to right,
         rgba(00,0,0,1) 0%,
