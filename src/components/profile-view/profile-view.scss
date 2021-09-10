@@ -1,5 +1,12 @@
-.card-container {
+.profile-card {
   justify-content: center;
+  background-color: black;
+}
+
+.fav-movies {
+  justify-items: center;
+  margin-left: 65px;
+  margin-top: 10px;
 }
 
 .remove-button {
@@ -7,8 +14,45 @@
   gap: 2;
 }
 
-.card-style {
-  width: 12rem;
+.fav-card {
+  height: 390px;
+  width: 250px;
   float: left;
-  margin-left: 5px;
+  margin-left: 50px;
+  margin-bottom: 35px;
+}
+
+.movie-image {
+  object-fit: cover;
+  height: 390px;
+  border-radius: 55;
+}
+
+.movie-image:hover {
+  opacity: 0.8;
+}
+
+.handle-remove {
+  position: absolute;
+  bottom: 0;
+  
+}
+
+.bi-trash-fill {
+  animation: blinker .5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.update-card {
+
+    background-image: linear-gradient(
+        to left,
+        rgba(00,0,0,1) 0%,
+        rgb(8, 20, 92) 50%
+    )
 }

@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from 'react-bootstrap/Container';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
 import moviesApp from './reducers/reducers';
 
@@ -11,7 +12,7 @@ import MainView from './components/main-view/main-view';
 // Import statement to indicate you need to bundle `./index.scss`
 import './index.scss';
 
-const store = createStore(moviesApp);
+const store = createStore(moviesApp, devToolsEnhancer());
 
 // Main component (will eventually use all the others)
 class FlixSpotterApplication extends React.Component {

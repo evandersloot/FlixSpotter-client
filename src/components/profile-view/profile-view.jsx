@@ -71,7 +71,6 @@ export class ProfileView extends React.Component {
         const form = e.currentTarget
         if (form.checkValidity() === false) {
             e.preventDefault()
-            e.stopPropagation()
             this.setState({
                 validated: true,
             })
@@ -88,11 +87,11 @@ export class ProfileView extends React.Component {
             password: this.state.password,
             email: this.state.email,
             birthday: this.state.birthday
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` },    
-        })
-        .then(response => {
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },    
+          })
+          .then(response => {
             const data = response.data;
             alert('Your changes have been saved!')
             this.setState({
@@ -102,7 +101,7 @@ export class ProfileView extends React.Component {
                 email: data.email,
                 birthday: data.birthday,
             })
-            localStorage.setItem('user', this.state.username)
+            localStorage.setItem('user', data.username)
             window.open(`/users/${username}`, '_self')
         })
         .catch(function (error) {
@@ -150,33 +149,28 @@ export class ProfileView extends React.Component {
         const { movies } = this.props;
 
         return (
-            <Container className="profile-view">
+            <Container className="profile-view mt-5">
             <Tabs defaultActiveKey="profile" transition={false} className="profile-tabs">
     
-              <Tab className="tab-item" eventKey="profile" title="Profile">
+            <Tab className="tab-item" eventKey="profile" title="Profile">
                 <Card className="profile-card" border="info">
-                  <Card.Title className="text-center">{username}'s Favorite Movies</Card.Title>
-                  {FavoriteMovies.length < 1 && <div className="card-content">You're slacking! You don't like Movies?</div>}
-                  <div className="card-container">
+                  <Card.Title className="text-center text-light">{username}'s Favorite Movies</Card.Title>
+                  {FavoriteMovies.length < 1 && <div className="card-content text-center text-light">You're slacking! You don't like Movies?</div>}
+                  <div md={4} className="fav-movies">
                     {FavoriteMovies.length > 0 && movies.map((movie) => {
                         if (movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)) {
                          return (
-                         
-                            <Card className="card-style" key={movie._id} >
-                              <Link to={`/movies/${movie._id}`}>
-                                <Card.Img variant='top' src={movie.ImagePath} />
-                              </Link>
-                              <Card.Body>
-                              <Card.Title className="text-center">{movie.Title}</Card.Title>
-                              </Card.Body>
-                              <Card.Footer>   
-                              <Link to={`/movies/${movie._id}`}>
-                                <div className="remove-button">
-                                <Button variant="danger" size="sm" onClick={e => this.handleRemove(e, movie._id)}>Remove</Button>
-                                </div>
-                              </Link>
-                              </Card.Footer>
-                            </Card>                                     
+                          
+                          <Card className="fav-card">
+                            <Link to={`/movies/${movie._id}`}>
+                              <Card.Img className="movie-image" src={movie.ImagePath} />
+                            </Link>    
+                            <div className="handle-remove">
+                            <svg variant="danger" value={movie._id} onClick={e => this.handleRemove(e, movie._id)} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                            </div>
+                            </Card>     
                           
                           )
                         }}  
@@ -186,7 +180,7 @@ export class ProfileView extends React.Component {
                 </Card>
               </Tab>
               <Tab className="tab-item" eventKey="update" title="Update">
-                <Card className="update-card">
+                <Card className="update-card text-light">
                 <Card.Title className="profile-title">Update {username}'s Profile</Card.Title>
                 <Card.Subtitle className="card-subtitle-update">Please fill in every field.</Card.Subtitle>
                 <Card.Body>
@@ -220,7 +214,7 @@ export class ProfileView extends React.Component {
               </Tab>
 
               <Tab className="tab-item" eventKey="delete" title="Delete Profile">
-                <Card className="update-card">
+                <Card className="update-card text-light">
                 <Card.Title className="profile-title">Delete Profile</Card.Title>
                 <Card.Subtitle className="text-muted">Sorry to see you leave. You will have to create a new account and start over is you wish to come back.</Card.Subtitle>
                 <Card.Body>

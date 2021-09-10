@@ -39,15 +39,43 @@ html, body {
   margin-bottom: 20px;
 }
 
-.movie-title, .movie-director, .movie-genre {
+.movie-title {
   text-decoration: underline;
+  font-size: 28px;
 }
-.open-button {
+.movie-card {
+  margin: 10px;
+  background-color: black;
+}
+
+.card-image:hover {
+  opacity: 0.8;
+}
+
+.card-image {
+  object-fit: cover;
+  height: 435px;
+  border-radius: 55;
+}
+
+.featured-movie {
   display: grid;
-  gap: 2;
+  place-items: center;
+  height: 25px;
+  background-color: gold;
+  border-radius: 5px 5px 5px 5px;
+  font-size: 15px;
+  position: absolute;
 }
-.card-container {
+.profile-card {
   justify-content: center;
+  background-color: black;
+}
+
+.fav-movies {
+  justify-items: center;
+  margin-left: 65px;
+  margin-top: 10px;
 }
 
 .remove-button {
@@ -55,10 +83,40 @@ html, body {
   gap: 2;
 }
 
-.card-style {
-  width: 12rem;
+.fav-card {
+  height: 390px;
+  width: 250px;
   float: left;
-  margin-left: 5px;
+  margin-left: 50px;
+  margin-bottom: 35px;
+}
+
+.movie-image {
+  object-fit: cover;
+  height: 390px;
+  border-radius: 55;
+}
+
+.movie-image:hover {
+  opacity: 0.8;
+}
+
+.handle-remove {
+  position: absolute;
+  bottom: 0;
+}
+
+.bi-trash-fill {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.2;
+  }
+}
+.update-card {
+  background-image: linear-gradient(to left, black 0%, #08145c 50%);
 }
 .main-view {
   background-color: black;
@@ -66,8 +124,9 @@ html, body {
 }
 
 .nav-bar {
-  position: relative;
+  position: fixed;
   display: flex;
+  margin-bottom: 0px;
   background-image: linear-gradient(to right, black 0%, #08145c 50%);
 }
 /*# sourceMappingURL=index.caa67093.css.map */
