@@ -38,15 +38,18 @@ export class MovieView extends React.Component {
 
   render() {
     const { movie, onBackClick } = this.props;
-    const { favorite} = this.state;
+    const { favorite } = this.state;
 
     if (!movie) return null;
 
     return (
-      <Container className="movieView text-light mt-2">
+      <Container className="movieView text-light mt-5">
         <Row className="movie-view d-flex justify-content-center">
-          <Col className="movie-poster h-100 w-100">
-            <img src={movie.ImagePath} />
+          <Col className="movie-poster">
+            <img className="movie-image mt-5" src={movie.ImagePath} />
+            <div className="fav-button mt-5">
+              {!favorite && <Button variant="success" onClick = {this.addFavorite}>Add to Favorites</Button>}
+            </div>
           </Col>
           <Col>
           <div className="movie-title">
@@ -69,10 +72,10 @@ export class MovieView extends React.Component {
           </div><br />
           
           <div className="back-button">
-            <Button variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button> 
+            <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button> 
           <br /><br />
           
-            {!favorite && <Button variant="success" onClick = {this.addFavorite}>Add to Favorites</Button>}
+            
           
           </div>
           </Col>         
