@@ -8,7 +8,7 @@ export class GenreView extends React.Component {
         const { genre, onBackClick } = this.props;
         
         return (
-            <div className="genre-view text-light">
+            <div className="mt-5 text-light">
                 <div className="genre-name">
                     <h1>
                         <span className="value">{genre.Name}</span>
@@ -17,8 +17,11 @@ export class GenreView extends React.Component {
                 <div className="genre-bio">
                     <span className="value">{genre.Description}</span>
                 </div><br />
-                <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button>
+                <div>
+                    <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button>
+                </div>
             </div>
+            
         );
         }
 }
@@ -27,7 +30,7 @@ GenreView.propTypes = {
     genre: propTypes.shape({
         Name: propTypes.string.isRequired,
         Description: propTypes.string.isRequired
-    })
+    }).isRequired
 }
 
 export default GenreView;
