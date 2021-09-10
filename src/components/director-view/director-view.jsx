@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Button from 'react-bootstrap/Button';
 
@@ -10,6 +11,9 @@ export class DirectorView extends React.Component {
     
     return (
         <div className="director-view text-light">
+            <Col className="movie-poster h-100 w-100">
+            <img src={director.Image} />
+          </Col>
             <div className="director-name">
                 <h1>
                    <span className="value">{director.Name}</span>
@@ -19,10 +23,10 @@ export class DirectorView extends React.Component {
                 <span className="value">{director.Bio}</span>
             </div>
             <div>
-                <span className="value">{director.Birth}</span>
+                <span className="value">Born: {director.Birth}</span>
             </div>   
             <div>
-                <span className="value">{director.Death}</span>
+                <span className="value">Died: {director.Death}</span>
             </div>
             <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button>
         </div>
@@ -33,6 +37,7 @@ export class DirectorView extends React.Component {
 DirectorView.propTypes = {
     director: propTypes.shape({
         Name: propTypes.string.isRequired,
+        Image: propTypes.string.isRequired,
         Bio: propTypes.string.isRequired,
         Birth: propTypes.string,
         Death: propTypes.string,
