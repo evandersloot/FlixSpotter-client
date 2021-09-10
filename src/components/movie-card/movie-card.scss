@@ -1,4 +1,24 @@
-.open-button {
+.movie-card {
+  margin: 10px;
+  background-color: black;
+}
+
+.card-image:hover {
+  opacity: 0.8;
+}
+
+.card-image {
+  object-fit: cover;
+  height: 435px;
+  border-radius: 55;
+}
+
+.featured-movie {
   display: grid;
-  gap: 2;
+  place-items: center;
+  height: 25px;
+  background-color: gold;
+  border-radius: 5px 5px 5px 5px;
+  font-size: 15px;
+  position: absolute; 
 }
