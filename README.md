@@ -74,3 +74,4 @@ Technical Requirements
 * The application must contain a mix of class components and function components
 * The application may be hosted online
     * FlixSpotter application is hosted by Netlify at https://sloots-flixspotter.netlify.app/
+[![Netlify Status](https://api.netlify.com/api/v1/badges/98772c43-1cea-4cfa-9480-78c8da7f36c7/deploy-status)](https://app.netlify.com/sites/sloots-flixspotter/deploys)
