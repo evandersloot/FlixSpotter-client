@@ -149,85 +149,88 @@ export class ProfileView extends React.Component {
         const { movies } = this.props;
 
         return (
-            <Container className="profile-view mt-5">
+          <Container className="profile-view mt-5">
             <Tabs defaultActiveKey="profile" transition={false} className="profile-tabs">
     
-            <Tab className="tab-item" eventKey="profile" title="Profile">
-                <Card className="profile-card" border="info">
-                  <Card.Title className="text-center text-light">{username}'s Favorite Movies</Card.Title>
-                  {FavoriteMovies.length < 1 && <div className="card-content text-center text-light">You're slacking! You don't like Movies?</div>}
-                  <div md={4} className="fav-movies">
-                    {FavoriteMovies.length > 0 && movies.map((movie) => {
-                        if (movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)) {
-                         return (
-                          
-                          <Card className="fav-card">
-                            <Link to={`/movies/${movie._id}`}>
-                              <Card.Img className="movie-image" src={movie.ImagePath} />
-                            </Link>    
-                            <div className="handle-remove">
-                            <svg variant="danger" value={movie._id} onClick={e => this.handleRemove(e, movie._id)} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                            </svg>
-                            </div>
+              <Tab className="tab-item" eventKey="profile" title="Profile">
+                  <Card className="profile-card" border="info">
+                    <Card.Title className="text-center text-light">{username}'s Favorite Movies</Card.Title>
+                    {FavoriteMovies.length < 1 && <div className="card-content text-center text-light">You're slacking! You don't like Movies?</div>}
+                    <div md={4} className="fav-movies">
+                      {FavoriteMovies.length > 0 && movies.map((movie) => {
+                          if (movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)) {
+                          return (
+                            
+                            <Card className="fav-card">
+                              <Link to={`/movies/${movie._id}`}>
+                                <Card.Img className="movie-image" src={movie.ImagePath} />
+                              </Link>
+                              <div className="featured-movie">
+                                {movie.Featured ? (
+                                  <p className="card-title"><span className="featured">Featured!</span></p>
+                                  ) : (
+                                  <p className="card-title"></p>
+                                )}
+                              </div>    
+                              <div className="handle-remove">
+                                <svg variant="danger" value={movie._id} onClick={e => this.handleRemove(e, movie._id)} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                              </div>
                             </Card>     
-                          
-                          )
-                        }}  
-                      )
-                    } 
-                </div>
-                </Card>
-              </Tab>
-              <Tab className="tab-item" eventKey="update" title="Update">
-                <Card className="update-card text-light">
-                <Card.Title className="profile-title">Update {username}'s Profile</Card.Title>
-                <Card.Subtitle className="card-subtitle-update">Please fill in every field.</Card.Subtitle>
-                <Card.Body>
-                    <Form noValidate validated={validated} className="update-form" onSubmit={e => this.handleUpdate(e, this.name, this.username, this.password, this.email, this.birthday)}>
-                    <Form.Group controlId="formBasicUsername">
-                        <Form.Label className="form-label">Username</Form.Label>
-                        <Form.Control type="text" placeholder="Change Username" name="username" onChange={e => this.setUsername(e.target.value)} />
-                        <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label className="form-label">
-                        Password <span className="required">*</span>
-                        </Form.Label>
-                        <Form.Control type="password" placeholder="Current or New Password" onChange={e => this.setPassword(e.target.value)} />
-                        <Form.Control.Feedback type="invalid">Please enter a valid password with at least 8 characters.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label className="form-label">Email</Form.Label>
-                        <Form.Control type="email" placeholder="Change Email" onChange={e => this.setEmail(e.target.value)} />
-                        <Form.Control.Feedback type="invalid">Please enter a valid email address.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicBirthday">
-                        <Form.Label className="form-label">Username</Form.Label>
-                        <Form.Control type="date" placeholder="Change Birthday" onChange={e => this.setBirthday(e.target.value)} />
-                        <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Button className="update-button mt-2" type="submit" variant="info">Update</Button>
-                    </Form>
-                </Card.Body>
-                </Card>
-              </Tab>
+                            )
+                          }  
+                      })} 
+                  </div>
+                  </Card>
+                </Tab>
+                <Tab className="tab-item" eventKey="update" title="Update">
+                  <Card className="update-card text-light">
+                    <Card.Title className="profile-title">Update {username}'s Profile</Card.Title>
+                    <Card.Subtitle className="card-subtitle-update">Please fill in every field.</Card.Subtitle>
+                    <Card.Body>
+                      <Form noValidate validated={validated} className="update-form" onSubmit={e => this.handleUpdate(e, this.name, this.username, this.password, this.email, this.birthday)}>
+                        <Form.Group controlId="formBasicUsername">
+                          <Form.Label className="form-label">Username</Form.Label>
+                          <Form.Control type="text" placeholder="Change Username" name="username" onChange={e => this.setUsername(e.target.value)} />
+                          <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                          <Form.Label className="form-label">
+                            Password <span className="required">*</span>
+                          </Form.Label>
+                          <Form.Control type="password" placeholder="Current or New Password" onChange={e => this.setPassword(e.target.value)} />
+                          <Form.Control.Feedback type="invalid">Please enter a valid password with at least 8 characters.</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                          <Form.Label className="form-label">Email</Form.Label>
+                          <Form.Control type="email" placeholder="Change Email" onChange={e => this.setEmail(e.target.value)} />
+                          <Form.Control.Feedback type="invalid">Please enter a valid email address.</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formBasicBirthday">
+                          <Form.Label className="form-label">Username</Form.Label>
+                          <Form.Control type="date" placeholder="Change Birthday" onChange={e => this.setBirthday(e.target.value)} />
+                          <Form.Control.Feedback type="invalid">Please enter a valid username with at least 5 alphanumeric characters.</Form.Control.Feedback>
+                        </Form.Group>
+                        <Button className="update-button mt-2" type="submit" variant="info">Update</Button>
+                      </Form>
+                    </Card.Body>
+                  </Card>
+                </Tab>
 
-              <Tab className="tab-item" eventKey="delete" title="Delete Profile">
-                <Card className="update-card text-light">
-                <Card.Title className="profile-title">Delete Profile</Card.Title>
-                <Card.Subtitle className="text-muted">Sorry to see you leave. You will have to create a new account and start over is you wish to come back.</Card.Subtitle>
-                <Card.Body>
-                    <Button className="button" variant="danger" onClick={(e) => this.handleDelete(e)}>
-                    Click Here If You're Sure!
-                            </Button>
-                </Card.Body>
-                </Card>
-              </Tab>
-            
+                <Tab className="tab-item" eventKey="delete" title="Delete Profile">
+                  <Card className="update-card text-light">
+                    <Card.Title className="profile-title">Delete Profile</Card.Title>
+                    <Card.Subtitle className="text-muted">Sorry to see you leave. You will have to create a new account and start over is you wish to come back.</Card.Subtitle>
+                    <Card.Body>
+                      <Button className="button" variant="danger" onClick={(e) => this.handleDelete(e)}>Click Here If You're Sure!</Button>
+                    </Card.Body>  
+                  </Card>
+                </Tab>
             </Tabs>
-            </Container>
-        )}
+          </Container>
+        )
+    }
 }
       
 ProfileView.propTypes = {

@@ -56,3 +56,13 @@
         rgb(8, 20, 92) 50%
     )
 }
+
+.featured-movie {
+  display: grid;
+  place-items: center;
+  height: 25px;
+  background-color: gold;
+  border-radius: 5px 5px 5px 5px;
+  font-size: 15px;
+  position: absolute; 
+}

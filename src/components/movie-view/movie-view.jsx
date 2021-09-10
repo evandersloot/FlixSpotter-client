@@ -52,32 +52,32 @@ export class MovieView extends React.Component {
             </div>
           </Col>
           <Col>
-          <div className="movie-title">
-            <span className="value">{movie.Title}</span>
-          </div><br />
-          <div className="movie-description">
-            <span className="value">{movie.Description}</span>
-          </div><br />
+            <div className="movie-title">
+              <span className="value">{movie.Title}</span>
+            </div><br />
+            <div className="movie-description">
+              <span className="value">{movie.Description}</span>
+            </div><br />
 
-          <div className="movie-director">
-            <span className="label">Directed by:  
-              <br /><Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link>
-            </span>             
-          </div><br />
-          
-          <div className="movie-genre">
-            <span className="label">Genre: 
-              <br /><Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link>
-            </span>
-          </div><br />
-          
-          <div className="back-button">
-            <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button> 
-          <br /><br />
-          
+            <div className="movie-director">
+              <span className="label">Directed by:  
+                <br /><Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link>
+              </span>             
+            </div><br />
             
-          
-          </div>
+            <div className="movie-genre">
+              <span className="label">Genre: 
+                <br /><Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link>
+              </span>
+            </div><br />
+            
+            <div className="back-button">
+              <Button variant="primary" onClick={() => {onBackClick(null);}}>Go Back</Button> 
+            <br /><br />
+            
+              
+            
+            </div>
           </Col>         
         </Row>
       </Container>

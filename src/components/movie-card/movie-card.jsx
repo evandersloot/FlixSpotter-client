@@ -1,8 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image';
 
 import { Link } from 'react-router-dom';
 
@@ -23,8 +21,6 @@ export class MovieCard extends React.Component {
             ) : (
               <p className="card-title"></p>
             )}
-          
-        
         </div>
       </Card>                 
     );
