@@ -56,13 +56,13 @@ export class ProfileView extends React.Component {
         headers: { Authorization: `Bearer ${token}` }
         })
         .then(() => {
-            alert(`${movie.Title} has been deleted from your favorites!`);
+            alert(`${movie} has been deleted from your favorites!`);
             this.componentDidMount()
         })
         .catch(function (error) {
             console.log(error);
         });
-    } 
+    }
 
     handleUpdate(e) {
         this.setState({
@@ -76,8 +76,8 @@ export class ProfileView extends React.Component {
             })
             return
         }
-        e.preventDefault() 
-    
+        e.preventDefault()
+
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
 
@@ -89,7 +89,7 @@ export class ProfileView extends React.Component {
             birthday: this.state.birthday
           },
           {
-            headers: { Authorization: `Bearer ${token}` },    
+            headers: { Authorization: `Bearer ${token}` },
           })
           .then(response => {
             const data = response.data;
@@ -112,15 +112,15 @@ export class ProfileView extends React.Component {
       setUsername(username) {
         this.setState({username})
       }
-    
+
       setPassword(password) {
         this.setState({password})
       }
-    
+
       setEmail(email) {
         this.setState({email})
       }
-    
+
       setBirthday(birthday) {
         this.setState({birthday})
       }
@@ -143,7 +143,7 @@ export class ProfileView extends React.Component {
         });
     }
 
-    render() {       
+    render() {
         const { FavoriteMovies, validated } = this.state;
         const username = localStorage.getItem('user');
         const { movies } = this.props;
@@ -151,7 +151,7 @@ export class ProfileView extends React.Component {
         return (
           <Container className="profile-view mt-5">
             <Tabs defaultActiveKey="profile" transition={false} className="profile-tabs">
-    
+
               <Tab className="tab-item" eventKey="profile" title="Profile">
                   <Card className="profile-card" border="info">
                     <Card.Title className="text-center text-light">{username}'s Favorite Movies</Card.Title>
@@ -160,7 +160,7 @@ export class ProfileView extends React.Component {
                       {FavoriteMovies.length > 0 && movies.map((movie) => {
                           if (movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)) {
                           return (
-                            
+
                             <Card className="fav-card">
                               <Link to={`/movies/${movie._id}`}>
                                 <Card.Img className="movie-image" src={movie.ImagePath} />
@@ -171,16 +171,16 @@ export class ProfileView extends React.Component {
                                   ) : (
                                   <p className="card-title"></p>
                                 )}
-                              </div>    
+                              </div>
                               <div className="handle-remove">
                                 <svg variant="danger" value={movie._id} onClick={e => this.handleRemove(e, movie._id)} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                   <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                                 </svg>
                               </div>
-                            </Card>     
+                            </Card>
                             )
-                          }  
-                      })} 
+                          }
+                      })}
                   </div>
                   </Card>
                 </Tab>
@@ -224,7 +224,7 @@ export class ProfileView extends React.Component {
                     <Card.Subtitle className="text-muted">Sorry to see you leave. You will have to create a new account and start over is you wish to come back.</Card.Subtitle>
                     <Card.Body>
                       <Button className="button" variant="danger" onClick={(e) => this.handleDelete(e)}>Click Here If You're Sure!</Button>
-                    </Card.Body>  
+                    </Card.Body>
                   </Card>
                 </Tab>
             </Tabs>
@@ -232,7 +232,7 @@ export class ProfileView extends React.Component {
         )
     }
 }
-      
+
 ProfileView.propTypes = {
 user: propTypes.shape({
     FavoriteMovies: propTypes.arrayOf(
