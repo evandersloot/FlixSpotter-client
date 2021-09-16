@@ -18,7 +18,8 @@ export class ProfileView extends React.Component {
       email: null,
       birthday: null,
       FavoriteMovies: [],
-      validated: null
+      validated: null,
+      movie: null
     }
   }
     componentDidMount() {
@@ -49,20 +50,21 @@ export class ProfileView extends React.Component {
     }
 
     handleRemove(e, movie) {
-        e.preventDefault()
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('user');
-        axios.delete(`https://flixspotter.herokuapp.com/users/${username}/movies/remove/${movie}`, {
-        headers: { Authorization: `Bearer ${token}` }
-        })
-        .then(() => {
-            alert(this.props.movie.Title + ' has been deleted your favorites list!')
-            this.componentDidMount()
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
+      e.preventDefault()
+      const token = localStorage.getItem('token');
+      const username = localStorage.getItem('user');
+      axios.delete(`https://flixspotter.herokuapp.com/users/${username}/movies/remove/${movie}`, {
+      headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(() => {
+          alert('The movie has been deleted your favorites list!')
+          this.componentDidMount()
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  }
+
 
     handleUpdate(e) {
         this.setState({
@@ -244,7 +246,7 @@ user: propTypes.shape({
     username: propTypes.string.isRequired,
     email: propTypes.string.isRequired,
     password: propTypes.string,
-})
+}),
 };
 
 export default ProfileView;
