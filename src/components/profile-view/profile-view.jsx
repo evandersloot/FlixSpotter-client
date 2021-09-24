@@ -165,7 +165,7 @@ export class ProfileView extends React.Component {
 
                             <Card className="fav-card">
                               <Link to={`/movies/${movie._id}`}>
-                                <Card.Img className="movie-image" src={movie.ImagePath} />
+                                <Card.Img className="movie-image" src={movie.ImagePath} crossOrigin="anonymous" />
                               </Link>
                               <div className="featured-movie">
                                 {movie.Featured ? (

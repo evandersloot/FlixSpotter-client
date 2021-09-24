@@ -46,7 +46,7 @@ export class MovieView extends React.Component {
       <Container className="movieView text-light mt-5">
         <Row className="movie-view d-flex justify-content-center">
           <Col className="movie-poster">
-            <img className="movie-image mt-5" src={movie.ImagePath} />
+            <img className="movie-image mt-5" src={movie.ImagePath} crossOrigin="anonymous" />
             <div className="fav-button mt-5">
               {!favorite && <Button variant="success" onClick = {this.addFavorite}>Add to Favorites</Button>}
             </div>
