@@ -40734,6 +40734,7 @@ class MovieCard extends _reactDefault.default.Component {
                         className: "card-image",
                         variant: "top",
                         src: movie.ImagePath,
+                        crossOrigin: "anonymous",
                         __source: {
                             fileName: "src/components/movie-card/movie-card.jsx",
                             lineNumber: 16
@@ -41537,6 +41538,7 @@ class MovieView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx("img", {
                                 className: "movie-image mt-5",
                                 src: movie.ImagePath,
+                                crossOrigin: "anonymous",
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
                                     lineNumber: 49
@@ -42280,6 +42282,7 @@ class ProfileView extends _reactDefault.default.Component {
                                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
                                                         className: "movie-image",
                                                         src: movie.ImagePath,
+                                                        crossOrigin: "anonymous",
                                                         __source: {
                                                             fileName: "src/components/profile-view/profile-view.jsx",
                                                             lineNumber: 168
